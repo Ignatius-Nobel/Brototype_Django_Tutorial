@@ -1,17 +1,12 @@
-{% extends 'blank_layout.html' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SignUp</title>
+    <title>Login</title>
 </head>
 <body>
-    {% block content%}
-        <h1>Create Users</h1>
-    {% endblock %}
-
-    {% block list %}
+        <h1>Login</h1>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <p><label>UserName</label>
@@ -20,18 +15,11 @@
             <p><label>Password</label>
                 <input type="password" name="password"></p>
 
-            <button type="submit">SignUp</button>
+            <button type="submit">Login</button>
         </form>
-        <p>
-            {% if user %}
-            <h4>Hello {{user.username}} 👋!</h4>
-            {% endif %}
-            {% if error_msg %}
-            <h4 style="color: red;">{{error_msg}}</h4>
-            {% endif %}
-        </p>
-    {% endblock %}
-
     
+        {% if error_msg %}
+            <h4 style="color: red;">{{error_msg}}</h4>
+        {% endif %}
 </body>
 </html>

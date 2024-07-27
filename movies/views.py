@@ -2,6 +2,7 @@ from turtle import title
 from django.shortcuts import redirect, render
 from . models import MovieInfo
 from . forms import MovieForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def create(request):
     if request.method == "POST":
@@ -32,6 +33,7 @@ def delete(request,pk):
     movie_set =  MovieInfo.objects.all()
     return render(request,"list.html",{'movies': movie_set})
 
+@login_required(login_url='login/')
 def list(request):
     recent_visits = request.session.get('recent_visits',[])
     # print(request.COOKIES)

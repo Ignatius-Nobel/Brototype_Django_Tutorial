@@ -26,6 +26,9 @@
             {% if user %}
             <h4>Hello {{user.username}} 👋!</h4>
             {% endif %}
+            {% if error_msg %}
+            <h4 style="color: red;">{{error_msg}}</h4>
+            {% endif %}
         </p>
     {% endblock %}
 

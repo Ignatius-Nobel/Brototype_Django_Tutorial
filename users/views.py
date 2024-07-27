@@ -4,8 +4,12 @@ from django.contrib.auth.models import User
 
 def signup(request):
     user = None
+    error_msg = None
     if request.POST:
         username = request.POST['username']
         password = request.POST['password']
-        user = User.objects.create_user(username=username, password=password)
-    return render(request, 'users/create.html',{'user':user})
+        try:
+            user = User.objects.create_user(username=username, password=password)
+        except Exception as e:
+            error_msg = str(e)
+    return render(request, 'users/create.html',{'user':user,'error_msg':error_msg})

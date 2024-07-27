@@ -9,6 +9,11 @@
   </head>
   <body>
     {% block content%}
+
+    {% for movies in recent_movies %}
+    <p>{{ movies.title | upper }}</p>
+    {% endfor %}
+
     <h1>List Movies {{ visits }} times visited</h1>
     {% endblock %}
 

@@ -20,6 +20,9 @@ def edit(request,pk):
         if frm.is_valid():
             instance_to_be_edited.save()
     else:
+        recent_visits = request.session.get('recent_visits',[])
+        recent_visits.insert(0,pk)
+        request.session['recent_visits'] = recent_visits
         frm = MovieForm(instance=instance_to_be_edited)
     return render(request,"create.html",{'frm' : frm})
 
@@ -30,11 +33,17 @@ def delete(request,pk):
     return render(request,"list.html",{'movies': movie_set})
 
 def list(request):
-    print(request.COOKIES)
+    recent_visits = request.session.get('recent_visits',[])
+    # print(request.COOKIES)
+    count = request.session.get('count',0)
+    count = int(count)
+    count += 1
+    request.session['count'] = count
+    recent_movie_set = MovieInfo.objects.filter(pk__in = recent_visits)
     visits = int(request.COOKIES.get('visits',0))
     visits += 1
     # movie_set =  MovieInfo.objects.filter(year__gt = 2020)
     movie_set =  MovieInfo.objects.all()
-    response = render(request,"list.html",{'movies': movie_set,'visits':visits})
-    response.set_cookie('visits',visits)
+    response = render(request,"list.html",{'recent_movies' : recent_movie_set,'movies': movie_set,'visits':count})
+    # response.set_cookie('visits',visits)
     return response

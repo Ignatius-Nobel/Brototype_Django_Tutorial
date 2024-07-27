@@ -1,0 +1,38 @@
+{% extends 'blank_layout.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    {% block content%}
+    <h1>List Movies {{ visits }} times visited</h1>
+    {% endblock %}
+
+    {% block list %}
+      <table>
+          <tr>
+            <th style="border-bottom: 2px solid black;">Title</th>
+            <th style="border-bottom: 2px solid black;">Year</th>
+            <th style="border-bottom: 2px solid black;">Summary</th>
+            <th style="border-bottom: 2px solid black;">Edit/Delete</th>
+          </tr>
+          {% for movie in movies %}
+          <tr>
+            <td>{{movie.title | upper}}</td>
+            <td>{{movie.year}}</td>
+            <td>{{movie.description | default:'No data available!'}}</td>
+            <td><a href="{% url 'edit' movie.id %}">Edit</a> / <a href="{% url 'delete' movie.id %}">Delete</a></td>
+            <td>
+            <img src="{{movie.poster}}" alt="pic"  style="width: 40px; ">
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+        
+    {% endblock %}
+  </body>
+</html>

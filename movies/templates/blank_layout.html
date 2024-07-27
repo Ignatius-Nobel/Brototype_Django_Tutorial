@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+        <h1>Movie Project
+            <img src="{% static 'images/logo.png' %}" alt="logo" width="25px">
+        </h1>
+    {% endblock %}
+    
+    {% include 'menu.html' %}
+
+    {% block list %}
+    {% endblock %}
+</body>
+</html>
